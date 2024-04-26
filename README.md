@@ -1,5 +1,27 @@
 
 # Daisy-s-Garden
+Re-imagined Space Invaders game. 
+This project utilizes the basic functions of a Space Invaders game  while expanding upon newer features such as the following:
+* character customization, using .png and .gif files to personalize frontend development of game
+* lives function, 3 hearts are used to function as extra lives 
+*our error handling, in functions such as key bindings, check for lives, and alien collision
+
+# external libraries 
+About Turtle 
+* creates basic graphics and imagery in the game environment
+About Random
+* random module spawns "aliens" in random positions within window boundaries
+
+# PyCharm files 
+place the following  image file into directory in PyCharm (preferrably) for code to run:
+![vines](https://github.com/Aang33/Daisy-s-Garden/assets/166956027/7e582a49-f527-4bed-b976-493bd85c18d8)
+![background](https://github.com/Aang33/Daisy-s-Garden/assets/166956027/5a1b737d-bed6-4fd5-a931-fafc91ce8dc8)
+![pixel_daisy](https://github.com/Aang33/Daisy-s-Garden/assets/166956027/589106b4-ca7b-4d60-b3b6-a40087178a1a)
+![smaller_heart](https://github.com/Aang33/Daisy-s-Garden/assets/166956027/9ba57fac-a7b4-45ff-acec-0912269a7f07)
+
+
+
+# start
 import random 
 import time
 import turtle 
