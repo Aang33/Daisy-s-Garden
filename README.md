@@ -1,15 +1,17 @@
 
 # Daisy-s-Garden
-import random
+import random 
 import time
-import turtle
+import turtle 
 
-turtle.register_shape("smaller_heart.gif")
+turtle.register_shape("smaller_heart.gif") # this adds images into the file of the game so that it can be used 
 
 # settings for cannon, laser and aliens
-FRAME_RATE = 30  # Frames per second
+# this sets the frame rate for the game
+FRAME_RATE = 30  # Frames per second  
 TIME_FOR_1_FRAME = 1 / FRAME_RATE  # Seconds
 
+# this sets up the features of the game, there timing, and there size 
 CANNON_STEP = 10
 LASER_LENGTH = 20
 LASER_SPEED = 60
@@ -20,12 +22,13 @@ MAX_HEALTH = 3  # Maximum health value for the player
 # set up windows for initial game
 window = turtle.Screen()
 window.tracer(0)
-window.setup(0.5, 0.75)
+window.setup(0.5, 0.75) #makes the window
 
 
-window.bgpic("background.png")
-window.title("Daisy's Garden")
+window.bgpic("background.png") # registers the the background images 
+window.title("Daisy's Garden") # gives the pop up window a title 
 
+# this gives phrases such as left, right, and top a purpose for later in the code. It sets up what those terms mean and where they are in the window pop up 
 LEFT = -window.window_width() / 2
 RIGHT = window.window_width() / 2
 TOP = window.window_height() / 2
@@ -33,17 +36,16 @@ BOTTOM = -window.window_height() / 2
 FLOOR_LEVEL = 0.9 * BOTTOM
 GUTTER = 0.025 * window.window_width()
 
+
+turtle.register_shape("pixel_daisy.gif") # inserting image into file 
+turtle.register_shape("vines.gif")# inserting image into file 
 # Create laser cannon
-
-turtle.register_shape("daisy.png")
-turtle.register_shape("vines.png")
-
 cannon = turtle.Turtle()
 cannon.penup()
 cannon.color(1, 1, 1)
-cannon.shape("daisy.png")
-cannon.setposition(0, FLOOR_LEVEL + 115)
-cannon.cannon_movement = 0  # -1, 0 or 1 for left, stationary, right
+cannon.shape("daisy.png") # takes that image out of the file to be used as the cannon
+cannon.setposition(0, FLOOR_LEVEL + 115) # sets cannon on the floor
+cannon.cannon_movement = 0  # -1, 0 or 1 for left, stationary, right 
 
 # Create lives indicator (hearts)
 lives = []
@@ -51,12 +53,12 @@ for i in range(MAX_HEALTH):
     life = turtle.Turtle()
     life.penup()
     life.color("red")
-    life.shape("smaller_heart.gif")
-    life.setposition(RIGHT - 30 - i * 30, TOP - 30)
+    life.shape("smaller_heart.gif") # takes image from file
+    life.setposition(RIGHT - 30 - i * 30, TOP - 30) # puts its positon in the top right hand corner 
     life.showturtle()
     lives.append(life)
 
-# Create turtle for writing text
+# Create turtle for writing text. This will be used for when the gaem is over but for now this piece of code just establishes a turtle whoes purpose is to write text
 text = turtle.Turtle()
 text.penup()
 text.hideturtle()
@@ -70,7 +72,7 @@ player_lives = MAX_HEALTH
 
 
 def move_left():
-    cannon.cannon_movement = -1
+    cannon.cannon_movement = -1 
 
 
 def move_right():
@@ -80,15 +82,14 @@ def move_right():
 def stop_cannon_movement():
     cannon.cannon_movement = 0
 
-
+# this creates the laser 
 def create_laser():
     laser = turtle.Turtle()
     laser.penup()
     laser.color(0, 0, 1)
     laser.hideturtle()
-    laser.setposition(cannon.xcor() + 90, cannon.ycor() + 15)
+    laser.setposition(cannon.xcor() + 90, cannon.ycor() + 15) # sets the laser right about Dasiys watergun 
     laser.setheading(90)
-    # Move laser to just above cannon tip
     laser.forward(10)
     # Prepare to draw the laser
     laser.pendown()
@@ -96,7 +97,7 @@ def create_laser():
 
     lasers.append(laser)
 
-
+# moves the laser up towads the vines 
 def move_laser(laser):
     laser.clear()
     laser.forward(LASER_SPEED)
@@ -104,7 +105,7 @@ def move_laser(laser):
     laser.forward(LASER_LENGTH)
     laser.forward(-LASER_LENGTH)
 
-
+# creates alien 
 def create_alien():
     alien = turtle.Turtle()
     alien.penup()
@@ -117,7 +118,7 @@ def create_alien():
         TOP,
     )
 
-    alien.shape("vines.PNG")
+    alien.shape("vines.gif") # gives the turtles that are aliens the image of vines 
     alien.setheading(-90)
     aliens.append(alien)
 
@@ -130,7 +131,7 @@ def remove_sprite(sprite, sprite_list):
     turtle.turtles().remove(sprite)
 
 
-# Key bindings
+# Key bindings that establish what keys do what in the game 
 window.onkeypress(move_left, "Left")
 window.onkeypress(move_right, "Right")
 window.onkeyrelease(stop_cannon_movement, "Left")
@@ -143,10 +144,11 @@ window.listen()
 alien_timer = 0
 game_timer = time.time()
 score = 0
-game_running = True
+game_running = True # this means the game is running and the pop up window stays open continuing the game
 while game_running and player_lives > 0:
     timer_this_frame = time.time()
 
+# esatblishes the game timer
     time_elapsed = time.time() - game_timer
     text.clear()
     text.write(
@@ -170,7 +172,7 @@ while game_running and player_lives > 0:
             if laser.distance(alien) < 20:
                 remove_sprite(laser, lasers)
                 remove_sprite(alien, aliens)
-                score += 1
+                score += 1 # adds to score when vines die 
                 break
     # Spawn new aliens when time interval elapsed
     if time.time() - alien_timer > ALIEN_SPAWN_INTERVAL:
@@ -205,16 +207,17 @@ while game_running and player_lives > 0:
                 life.hideturtle()
 
             remove_sprite(alien, aliens)
-
+# sets timer 
     time_for_this_frame = time.time() - timer_this_frame
     if time_for_this_frame < TIME_FOR_1_FRAME:
         time.sleep(TIME_FOR_1_FRAME - time_for_this_frame)
     window.update()
 
+# establishes a game over screen when all 3 lives are taken
 splash_text = turtle.Turtle()
 splash_text.hideturtle()
 splash_text.color(1, 1, 1)
 splash_text.write("GAME OVER", font=("Courier", 40, "bold"), align="center")
 
-turtle.done()
+turtle.done() # code finshes 
 window.update()
