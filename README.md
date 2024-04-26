@@ -2,9 +2,9 @@
 # Daisy-s-Garden
 Re-imagined Space Invaders game. 
 This project utilizes the basic functions of a Space Invaders game  while expanding upon newer features such as the following:
-* character customization, using .png and .gif files to personalize frontend development of game
+* character customization, using .png and .gif files to personalize the frontend development of the game
 * lives function, 3 hearts are used to function as extra lives 
-*our error handling, in functions such as key bindings, check for lives, and alien collision
+* our error handling in functions include key bindings, check for lives, and alien collision
 
 # external libraries 
 About Turtle 
